@@ -1738,25 +1738,22 @@ these parameters.</p>
 which is a list of the bam files.</p>
 <p>We’ll do this with some bash scripting and our favorite command
 <code>ls</code>.</p>
-<pre><code># ls by itself gives us a list of the bams
+<pre><code>
+# cd to where the bams directory is
+Singularity&gt; cd data/angsd
 
-Singularity&gt; ls data/angsd/bams
+# ls by itself gives us a list of the bams
+Singularity&gt; ls bams/
 
 # with some additions we can get the full path. the | (pipe) just shows the head or first couple of lines
-
-Singularity&gt; ls -d -1 data/angsd/bams/* | head
+Singularity&gt; ls -d -1 bams/* | head
 
 # now we&#39;ll use the &gt; to write the output of ls to a file
-
-Singularity&gt; ls -d -1 data/angsd/bams/* &gt; data/angsd/bam.filelist
+Singularity&gt; ls -d -1 bams/* &gt; bam.filelist
 </code></pre>
 <p>Now let’s use that bam.filelist to generate genotype likelihoods in
 angsd.</p>
-<pre><code># first cd to the /data/angsd directory
-
-Singularity&gt; cd data/angsd
-
-# then run angsd to check that the program is there
+<pre><code># then run angsd to check that the program is there
 
 Singularity&gt; angsd
 
@@ -1769,8 +1766,10 @@ Singularity&gt; angsd -bam bam.filelist -GL 2 -out genotype_likelihoods -doMajor
 <h1>PCangsd</h1>
 <p>Now we can use those genotype likelihood estimates to generate a
 principal component matrix.</p>
-<pre><code>
-Singularity&gt; pcangsd -b genotype_likelihoods.beagle.gz -o pca_out -t 28
+<pre><code># navigate to the pcangsd directory
+Singularity&gt; cd data/pcangsd
+
+Singularity&gt; pcangsd -b ../pcangsd/genotype_likelihoods.beagle.gz -o pca_out -t 28
 </code></pre>
 </div>
 <div id="r" class="section level1">
